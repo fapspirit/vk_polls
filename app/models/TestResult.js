@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-TestResult = new Schema({
+let TestResult = new Schema({
   test: {type: Schema.Types.ObjectId, ref: 'Test'},
   text: {type: String},
   image: {type: String},

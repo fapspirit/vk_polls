@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-Rubric = new Schema({
+let Rubric = new Schema({
   name: {type: String, required: true},
   image: {type: String},
   text: {type: String},

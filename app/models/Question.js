@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-Question = new Schema({
+let Question = new Schema({
   test: {type: Schema.Types.ObjectId, ref: 'Test'},
   answer_options: [{type: Schema.Types.ObjectId, ref: 'AnswerOption'}],
   text: {type: String},
@@ -9,7 +9,6 @@ Question = new Schema({
   right_text: {type: String},
   wrong_text: {type: String},
   order: {type: Number},
-  modified: {type: Date, default: Date.now}
 })
 
 module.exports = Question
