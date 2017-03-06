@@ -3,48 +3,50 @@ const UserModel = require('../models').UserModel
 let router = express.Router()
 
 router.get('/', (req, res) => {
-  return UserModel.find((err, users) => {
-    if (err) {
-      res.statusCode = 500
-      return res.send('Error')
-    }
-    res.send({users})
-  })
+  UserModel
+    .find()
+    .then(users => res.send({users}))
+    .catch(err => res.status(500).send('Error'))
 })
 
-router.get('/:id', (req, res) => {
-  res.send(`get user with id ${req.params.id}`)
+router.get('/:user_id', (req, res) => {
+  UserModel
+    .findById(req.params.user_id)
+    .then(user => res.send({user}))
+    .catch(err => res.status(404).send({error: {message: err.message}}))
 })
 
 router.post('/', (req, res) => {
   let user = new UserModel({
-    last_name: req.body.last_name,
-    first_name: req.body.first_name,
+    viewer_id: req.body.viewer_id
   })
-  user.save((err, user) => {
-    if (err) {
-      res.statusCode = 500
-      return res.send('error')
-    }
-
-    return res.send({status: 'ok', user: user})
-  })
+  user
+    .save()
+    .then(user => res.send({user}))
+    .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 
-router.patch('/:id', (req, res) => {
-  if (!req.params.id) {
-    res.statusCode = 422
-    return res.send('Error')
-  }
-  res.send(`User ${req.params.id} patched`)
+router.patch('/:user_id', (req, res) => {
+  let body = req.body
+  UserModel
+    .findById(req.params.user_id)
+    .then(user => {
+      Object.keys(body).forEach(key => user[key] = body[key])
+      user
+        .save()
+        .then(user => res.send({user}))
+        .catch(err => res.status(500).send({error: {message: err.message}}))
+    })
+    .catch(err => res.status(404).send({error:{message: err.message}}))
+
+
 })
 
-router.delete('/:id', (req, res) => {
-  if (!req.params.id) {
-    res.statusCode = 422
-    return res.send('Error')
-  }
-  res.send(`User ${req.params.id} patched`)
+router.delete('/:user_id', (req, res) => {
+  UserModel
+    .findByIdAndRemove(req.params.user_id)
+    .then(() => res.send())
+    .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 
 module.exports = router

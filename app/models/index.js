@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 const Settings = require('../../settings.json')
 
-const User          = require('./User.js')
-const Test          = require('./Test.js')
-const Question      = require('./Question.js')
-const AnswerOption  = require('./AnswerOption.js')
-const Answer        = require('./Answer.js')
-const TestResult    = require('./TestResult.js')
-const Rubric        = require('./Rubric.js')
+const User          = require('./User')
+const Test          = require('./Test')
+const Question      = require('./Question')
+const AnswerOption  = require('./AnswerOption')
+const Answer        = require('./Answer')
+const TestResult    = require('./TestResult')
+const Rubric        = require('./Rubric')
 
+mongoose.Promise = global.Promise
 mongoose.connect(Settings.db.host)
 const db = mongoose.connection
 
