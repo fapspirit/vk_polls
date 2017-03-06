@@ -1,6 +1,7 @@
 const express = require('express')
 const QuestionModel = require('../models').QuestionModel
 const TestModel = require('../models').TestModel
+const answer_options = require('./answer_options')
 let router = express.Router({mergeParams: true})
 
 router.get('/', (req, res) => {
@@ -65,5 +66,7 @@ router.delete('/:question_id', (req, res) => {
     .then(() => res.send())
     .catch(err => res.status(404).send({error: {message: err.message}}))
 })
+
+router.use('/:question_id', answer_options)
 
 module.exports = router
