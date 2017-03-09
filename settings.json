@@ -1,6 +1,6 @@
 {
   "port": 3000,
   "db": {
-    "host": "mongodb://localhost/test2"
+    "host": "mongodb://antondb:bddb60ce09077dac21335f2a69216004@dokku-mongo-antondb:27017/antondb"
   }
 }
