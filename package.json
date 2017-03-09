@@ -29,6 +29,7 @@
     "body-parser": "^1.17.0",
     "express": "^4.15.0",
     "lodash": "^4.17.4",
+    "jsdom": "*",
     "mongoose": "^4.8.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
