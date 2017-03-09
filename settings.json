@@ -1,7 +1,5 @@
 
 {
-  "port": 443,
-  "host": "https://frlvr.xyz",
   "db": {
     "host": "mongodb://antondb:bddb60ce09077dac21335f2a69216004@dokku-mongo-antondb:27017/antondb"
   }
