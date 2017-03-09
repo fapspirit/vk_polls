@@ -1,5 +1,7 @@
 const express = require('express')
 const UserModel = require('../models').UserModel
+const AnswerModel = require('../models').AnswerModel
+const AnswerOptionModel = require('../models').AnswerOptionModel
 let router = express.Router()
 
 router.get('/', (req, res) => {
@@ -46,6 +48,30 @@ router.delete('/:user_id', (req, res) => {
   UserModel
     .findByIdAndRemove(req.params.user_id)
     .then(() => res.send())
+    .catch(err => res.status(500).send({error: {message: err.message}}))
+})
+
+router.put('/:user_id/questions/:question_id/answer_options/:answer_option_id', (req, res) => {
+  let answer = new AnswerModel({
+    user: req.params.user_id,
+    question: req.params.question_id,
+    value: req.params.answer_option_id
+  })
+
+  answer
+    .save()
+    .then(answer => {
+      AnswerOptionModel
+        .findById(req.params.answer_option_id)
+        .then(answer_option => {
+          answer_option.answers.push(answer._id)
+          answer_option
+            .save()
+            .then(answer_option => res.end())
+            .catch(err => res.status(500).send({error: {message: err.message}}))
+        })
+        .catch(err => res.status(404).send({error:{message: err.message}}))
+    })
     .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 

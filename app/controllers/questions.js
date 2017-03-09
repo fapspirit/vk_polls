@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
     text: body.text || null,
     image: body.image || null,
     right_text: body.right_text || null,
-    wrong_text: body.wring_text || null,
+    wrong_text: body.wrong_text || null,
     order: body.order || 0
   })
 
@@ -67,6 +67,6 @@ router.delete('/:question_id', (req, res) => {
     .catch(err => res.status(404).send({error: {message: err.message}}))
 })
 
-router.use('/:question_id', answer_options)
+router.use('/:question_id/answer_options', answer_options)
 
 module.exports = router

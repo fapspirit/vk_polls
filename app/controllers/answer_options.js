@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
       QuestionModel
         .findById(req.params.question_id)
         .then(question => {
-          question.answer_options.push(answer_option)
+          question.answer_options.push(answer_option._id)
           question
             .save()
             .then(question => res.send({answer_option}))
