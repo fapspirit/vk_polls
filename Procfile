@@ -1,1 +1,1 @@
-web: NODE_ENV=production && node server.js
+web: NODE_ENV=development webpack && node server.js
