@@ -6,7 +6,8 @@ let AnswerOption = new Schema({
   text: {type: String},
   image: {type: String},
   order: {type: Number},
-  weight: {type: Number, default: 0}
+  weight: {type: Number, default: 0},
+  answers: [{type: Schema.Types.ObjectId, ref: 'Answer'}]
 })
 
 module.exports = AnswerOption

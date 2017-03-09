@@ -12,6 +12,7 @@ let Test = new Schema({
   questions: [{type: Schema.Types.ObjectId, ref: 'Question'}],
   rubric: {type: Schema.Types.ObjectId, ref: 'Rubric'},
   test_results: [{type: Schema.Types.ObjectId, ref: 'TestResult'}],
+
 }, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}})
 
 module.exports = Test
