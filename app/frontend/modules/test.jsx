@@ -2,6 +2,7 @@ import React from 'react'
 import Question from './question'
 import TestResult from './test-result'
 import _ from 'lodash'
+const Settings = require('../../../settings.json')
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class Test extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/api/tests/${this.props.params.test_id}`)
+    fetch(`${Settings.host}/api/tests/${this.props.params.test_id}`)
       .then(res => res.json())
       .then(res => {
         let state = {
@@ -29,7 +30,7 @@ export default class Test extends React.Component {
   }
 
   getTestResults() {
-    return fetch(`http://localhost:3000/api/tests/${this.props.params.test_id}/test_results`)
+    return fetch(`${Settings.host}/api/tests/${this.props.params.test_id}/test_results`)
       .then(res => res.json())
       .then(res => {
         let total_weight = this.state.totalWeight
@@ -42,7 +43,7 @@ export default class Test extends React.Component {
 
   onClick(question, answer_option) {
     let totalWeight = this.state.totalWeight + answer_option.weight
-    fetch(`http://localhost:3000/api/users/58c1ba62b6eb8f49427c0196/questions/${question._id}/answer_options/${answer_option._id}`,
+    fetch(`${Settings.host}/api/users/58c1ba62b6eb8f49427c0196/questions/${question._id}/answer_options/${answer_option._id}`,
       {method: 'PUT'}
     )
     .then(res => {

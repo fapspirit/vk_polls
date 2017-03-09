@@ -11971,6 +11971,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Settings = __webpack_require__(240);
+
 var Test = function (_React$Component) {
   _inherits(Test, _React$Component);
 
@@ -11993,7 +11995,7 @@ var Test = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('http://localhost:3000/api/tests/' + this.props.params.test_id).then(function (res) {
+      fetch(Settings.host + '/api/tests/' + this.props.params.test_id).then(function (res) {
         return res.json();
       }).then(function (res) {
         var state = {
@@ -12010,7 +12012,7 @@ var Test = function (_React$Component) {
     value: function getTestResults() {
       var _this3 = this;
 
-      return fetch('http://localhost:3000/api/tests/' + this.props.params.test_id + '/test_results').then(function (res) {
+      return fetch(Settings.host + '/api/tests/' + this.props.params.test_id + '/test_results').then(function (res) {
         return res.json();
       }).then(function (res) {
         var total_weight = _this3.state.totalWeight;
@@ -12026,7 +12028,7 @@ var Test = function (_React$Component) {
       var _this4 = this;
 
       var totalWeight = this.state.totalWeight + answer_option.weight;
-      fetch('http://localhost:3000/api/users/58c1ba62b6eb8f49427c0196/questions/' + question._id + '/answer_options/' + answer_option._id, { method: 'PUT' }).then(function (res) {
+      fetch(Settings.host + '/api/users/58c1ba62b6eb8f49427c0196/questions/' + question._id + '/answer_options/' + answer_option._id, { method: 'PUT' }).then(function (res) {
         if (_this4.state.currentQuestionIndex + 1 >= _this4.state.test.questions.length) {
           _this4.setState({ totalWeight: totalWeight });
           _this4.getTestResults();
@@ -44101,6 +44103,18 @@ var TestResult = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = TestResult;
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	"port": 3000,
+	"host": "http://localhost:3000",
+	"db": {
+		"host": "mongodb://localhost/test3"
+	}
+};
 
 /***/ })
 /******/ ]);
