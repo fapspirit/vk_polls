@@ -1,7 +1,7 @@
 
 {
-  "port": 443,
-  "host": "https://anton.frlvr.xyz",
+  "port": 5000,
+  "host": "172.17.0.6",
   "db": {
     "host": "mongodb://antondb:bddb60ce09077dac21335f2a69216004@dokku-mongo-antondb:27017/antondb"
   }
