@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default class TestAnnounce extends React.Component {
   constructor(props) {
@@ -13,10 +14,14 @@ export default class TestAnnounce extends React.Component {
         </div>
         <div className="b-announce__info">
           <div className="b-announce__title">
-            { this.props.title }
+            <Link to={`/tests/${this.props.test._id}`}>
+              { this.props.test.title }
+            </Link>
           </div>
           <div className="b-announce__subtitle">
-            { this.props.subtitle }
+            <Link to={`/tests/${this.props.test._id}`}>
+              { this.props.test.subtitle }
+            </Link>
           </div>
         </div>
       </div>
