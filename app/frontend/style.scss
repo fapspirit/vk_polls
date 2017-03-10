@@ -1,5 +1,6 @@
 body {
   -webkit-font-smoothing: antialiazed;
+  background-color: #fff;
 }
 
 #app {
@@ -111,8 +112,15 @@ body {
   }
 }
 
-@media only screen and (max-width: 700px) {
-  .b-answer-option {
-    width: 100%;
+@media only screen and (max-width: 750px) {
+  .b-test {
+    .b-question {
+      .b-question__options {
+        .b-answer-option {
+          width: 100%;
+          margin-bottom: 5px;
+        }
+      }
+    }
   }
 }
