@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Settings = require('../../settings.json')
+const NODE_ENV = process.env.NODE_ENV || 'development'
+const Settings = require('../../settings.json')[NODE_ENV]
 
 const User          = require('./User')
 const Test          = require('./Test')

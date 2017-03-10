@@ -1,8 +1,10 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
-const Settings = require('./settings.json')
+const NODE_ENV = process.env.NODE_ENV || 'development'
+const Settings = require('./settings.json')[NODE_ENV]
 const controllers = require('./app/controllers')
+
 
 const app = express()
 app.use(bodyParser.json())

@@ -1,0 +1,17 @@
+{
+  "production": {
+    "port": 5000,
+    "host": "https://frlvr.xyz",
+    "db": {
+      "host": "mongodb://antondb:bddb60ce09077dac21335f2a69216004@dokku-mongo-antondb:27017/antondb"
+    }
+  },
+  "development": {
+    "port": 3000,
+    "host": "http://localhost:3000",
+    "db": {
+      "host": "mongodb://localhost/test3"
+    }
+  }
+}
+
