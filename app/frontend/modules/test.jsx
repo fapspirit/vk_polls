@@ -2,7 +2,9 @@ import React from 'react'
 import Question from './question'
 import TestResult from './test-result'
 import _ from 'lodash'
-const Settings = require('../../../settings.json')
+// const Settings = require('../../../settings.json')
+
+console.log('Settings', Settings)
 
 export default class Test extends React.Component {
   constructor(props) {
