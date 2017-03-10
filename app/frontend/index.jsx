@@ -4,6 +4,8 @@ import { Router, Route, IndexRoute, hashHistory, useRouterHistory } from 'react-
 import { createHashHistory } from "history"
 import Test from "./modules/test"
 import TestAnnounce from './modules/test-announce'
+require('es6-promise/auto')
+import fetch from 'isomorphic-fetch'
 
 class App extends React.Component {
   constructor(props) {

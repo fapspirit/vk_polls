@@ -2,9 +2,8 @@ import React from 'react'
 import Question from './question'
 import TestResult from './test-result'
 import _ from 'lodash'
-// const Settings = require('../../../settings.json')
-
-console.log('Settings', Settings)
+import fetch from 'isomorphic-fetch'
+require('es6-promise/auto')
 
 export default class Test extends React.Component {
   constructor(props) {
