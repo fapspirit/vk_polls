@@ -25,7 +25,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
-public/asssets/*
+public/assets/*
 
 # Dependency directories
 node_modules
@@ -38,4 +38,4 @@ jspm_packages
 .node_repl_history
 
 # Settings file
-settings.json
+# settings.json
