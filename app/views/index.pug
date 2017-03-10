@@ -1,0 +1,13 @@
+html
+  head
+    meta(charset="UTF-8")
+    title
+      | VK TESTS
+    script(src="https://vk.com/js/api/xd_connection.js?2" type="text/javascript")
+    script.
+      var ViewerID = '#{viewer_id}'
+      var Hash = '#{hash}'
+      var User = !{JSON.stringify(user)}
+  body
+    #app
+    script(src="/assets/js/app.js" type="text/javascript")
