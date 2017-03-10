@@ -16,7 +16,7 @@ if (NODE_ENV !== 'production') {
 }
 
 app.get('/', (req, res) => {
-  console.log('GET /', '\nbody', req.body, '\nparams', req.params)
+  console.log('GET /', req)
   res.sendFile(path.join(__dirname, './app/views/index.html'))
 })
 
