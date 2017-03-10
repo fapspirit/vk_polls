@@ -19,6 +19,7 @@ if (NODE_ENV !== 'production') {
 }
 
 app.get('/', (req, res) => {
+  console.log('GET / \t\n', req.query)
   if (!req.query.viewer_id) {
     return res.status(500).send('Error')
   }
