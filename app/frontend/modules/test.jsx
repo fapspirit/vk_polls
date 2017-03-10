@@ -75,11 +75,11 @@ export default class Test extends React.Component {
     }
     return (
       <div className="b-test">
-        <div className="b-test__image">
-          <img />
-        </div>
         <div className="b-test__title">
           {this.state.test.title}
+        </div>
+        <div className="b-test__image">
+          <img />
         </div>
         <div className="b-test__question">
           {nextStep}
