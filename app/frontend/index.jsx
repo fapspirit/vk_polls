@@ -17,9 +17,14 @@ class App extends React.Component {
   }
 }
 
-render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App} />
-    <Route path="/tests/:test_id" component={Test} />
-  </Router>
-), document.getElementById('app'))
+VK.init(() => {
+  render((
+    <Router history={hashHistory}>
+      <Route path="/" component={App} />
+      <Route path="/tests/:test_id" component={Test} />
+    </Router>
+  ), document.getElementById('app'))
+
+}, () => {
+  console.log("vk init doesn't work!")
+}, '5.62')
