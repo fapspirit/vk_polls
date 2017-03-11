@@ -15,7 +15,7 @@ export default class Top extends React.Component {
       .then(res => res.json())
       .then(res => {
         let user_ids = res.users.map(user => user.viewer_id)
-        VK.api('users.get', {user_ids}, (data) => {
+        VK.api('users.get', {user_ids, test: 1}, (data) => {
           let users = data.response.map((user, i) => {
             user.score = res.users[i].score
             return user
