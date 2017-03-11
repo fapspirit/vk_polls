@@ -7,6 +7,7 @@ let Test = new Schema({
   subtitle: {type: String},
   start_time: {type: Date},
   end_time: {type: Date},
+  image: {type: String},
   published: {type: Boolean, default: false},
   author: {type: Schema.Types.ObjectId, ref: 'User'},
   questions: [{type: Schema.Types.ObjectId, ref: 'Question'}],
