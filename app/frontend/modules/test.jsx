@@ -10,6 +10,7 @@ export default class Test extends React.Component {
     super(props)
     this.state = {
       test: {},
+      answers: [],
       currentQuestion: {
         answer_options: []
       }
@@ -20,6 +21,15 @@ export default class Test extends React.Component {
     fetch(`${Settings.host}/api/tests/${this.props.params.test_id}`)
       .then(res => res.json())
       .then(res => {
+        if (res.test.passed == true) {
+          return this.setState({
+            test: res.test,
+            currentQuestion: undefined,
+            testResult: {
+              text: 'Вы уже прошли этот тест!'
+            }
+          })
+        }
         let state = {
           test: res.test,
           currentQuestion: res.test.questions[0],
@@ -30,37 +40,49 @@ export default class Test extends React.Component {
       })
   }
 
-  getTestResults() {
-    return fetch(`${Settings.host}/api/tests/${this.props.params.test_id}/test_results`)
+  getTestResults(totalWeight, answers) {
+    console.log('get results', totalWeight)
+    let options = {
+      method: 'POST',
+      body: JSON.stringify({answers, score: totalWeight}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch(`${Settings.host}/api/users/${User._id}/tests/${this.props.params.test_id}/answers` ,options)
       .then(res => res.json())
       .then(res => {
-        let total_weight = this.state.totalWeight
-        let testResult = _.find(res.test_results, result => {
-          return (total_weight >= result.min_weight && total_weight <= result.max_weight)
-        })
-        this.setState({testResult, currentQuestion: undefined})
+        fetch(`${Settings.host}/api/tests/${this.props.params.test_id}/test_results`)
+          .then(res => res.json())
+          .then(res => {
+            let total_weight = this.state.totalWeight
+            let testResult = _.find(res.test_results, result => {
+              return (total_weight >= result.min_weight && total_weight <= result.max_weight)
+            })
+            this.setState({testResult, currentQuestion: undefined})
+          })
       })
   }
 
   onClick(question, answer_option) {
+    console.log('total weight', this.state.totalWeight, answer_option.weight)
     let totalWeight = this.state.totalWeight + answer_option.weight
-    fetch(`${Settings.host}/api/users/58c1ba62b6eb8f49427c0196/questions/${question._id}/answer_options/${answer_option._id}`,
-      {method: 'PUT'}
-    )
-    .then(res => {
-      if (this.state.currentQuestionIndex + 1 >= this.state.test.questions.length) {
-        this.setState({totalWeight})
-        this.getTestResults()
-      } else {
-        let currentQuestionIndex = this.state.currentQuestionIndex + 1
-        let state = {
-          totalWeight,
-          currentQuestionIndex,
-          currentQuestion: this.state.test.questions[currentQuestionIndex]
-        }
-        this.setState(state)
+    let answers = this.state.answers
+    answers.push(answer_option)
+    console.log('answers', answers)
+    if (this.state.currentQuestionIndex + 1 >= this.state.test.questions.length) {
+      this.setState({totalWeight, answers})
+      this.getTestResults(totalWeight, answers)
+    } else {
+      let currentQuestionIndex = this.state.currentQuestionIndex + 1
+      let state = {
+        answers,
+        totalWeight,
+        currentQuestionIndex,
+        currentQuestion: this.state.test.questions[currentQuestionIndex]
       }
-    })
+      this.setState(state)
+    }
   }
 
   render() {

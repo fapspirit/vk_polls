@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute, hashHistory, useRouterHistory } from 'react-router'
 import { createHashHistory } from "history"
 import Test from "./modules/test"
+import Top from "./modules/top"
 import TestAnnounce from './modules/test-announce'
 require('es6-promise/auto')
 import fetch from 'isomorphic-fetch'
@@ -42,15 +43,14 @@ let history = useRouterHistory(createHashHistory)()
 if (Hash != '') {
   history.push(Hash)
 }
-render((
-  <Router history={history}>
-    <Route path="/" component={App} />
-    <Route path="/tests/:test_id" component={Test} />
-  </Router>
-), document.getElementById('app'))
-
 VK.init(() => {
-  console.log('vk init success')
+  render((
+    <Router history={history}>
+      <Route path="/" component={App} />
+      <Route path="/top" component={Top} />
+      <Route path="/tests/:test_id" component={Test} />
+    </Router>
+  ), document.getElementById('app'))
 }, () => {
   console.log("vk init doesn't work!")
 }, '5.62')
