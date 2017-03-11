@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 export default class TestResult extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class TestResult extends React.Component {
       <div className="b-result">
         <div className="b-result__text">{this.props.test_result.text}</div>
         <div className="b-result__link">
-          <Link to="/">Вернуться </Link>
+          <Link to="/">Вернуться</Link>
         </div>
       </div>
     )

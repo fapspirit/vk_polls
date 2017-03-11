@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, hashHistory, useRouterHistory } from 'react-router'
+import { Route, IndexRoute, NavLink as Link, HashRouter as Router, useRouterHistory } from 'react-router-dom'
 import { createHashHistory } from "history"
 import Test from "./modules/test"
 import Top from "./modules/top"
@@ -39,18 +39,32 @@ class App extends React.Component {
   }
 }
 
-let history = useRouterHistory(createHashHistory)()
+let history = createHashHistory()
 if (Hash != '') {
   history.push(Hash)
 }
-VK.init(() => {
-  render((
-    <Router history={history}>
+
+render((
+  <Router history={history}>
+    <div>
+      <div className="b-nav">
+        <div className="b-nav__element">
+          <Link exact to="/">Тесты</Link>
+        </div>
+        <div className="b-nav__element">
+          <Link to="/top">Топ</Link>
+        </div>
+      </div>
+
+
       <Route path="/" component={App} />
       <Route path="/top" component={Top} />
       <Route path="/tests/:test_id" component={Test} />
-    </Router>
-  ), document.getElementById('app'))
+    </div>
+  </Router>
+), document.getElementById('app'))
+
+VK.init(() => {
 }, () => {
   console.log("vk init doesn't work!")
 }, '5.62')

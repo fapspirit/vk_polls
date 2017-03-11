@@ -8,6 +8,7 @@ require('es6-promise/auto')
 export default class Test extends React.Component {
   constructor(props) {
     super(props)
+    console.log('props', props)
     this.state = {
       test: {},
       answers: [],
@@ -18,18 +19,9 @@ export default class Test extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${Settings.host}/api/tests/${this.props.params.test_id}`)
+    fetch(`${Settings.host}/api/tests/${this.props.match.params.test_id}`)
       .then(res => res.json())
       .then(res => {
-        if (res.test.passed == true) {
-          return this.setState({
-            test: res.test,
-            currentQuestion: undefined,
-            testResult: {
-              text: 'Вы уже прошли этот тест!'
-            }
-          })
-        }
         let state = {
           test: res.test,
           currentQuestion: res.test.questions[0],
@@ -41,7 +33,6 @@ export default class Test extends React.Component {
   }
 
   getTestResults(totalWeight, answers) {
-    console.log('get results', totalWeight)
     let options = {
       method: 'POST',
       body: JSON.stringify({answers, score: totalWeight}),
@@ -49,10 +40,10 @@ export default class Test extends React.Component {
         'Content-Type': 'application/json'
       }
     }
-    fetch(`${Settings.host}/api/users/${User._id}/tests/${this.props.params.test_id}/answers` ,options)
+    fetch(`${Settings.host}/api/users/${User._id}/tests/${this.props.match.params.test_id}/answers` ,options)
       .then(res => res.json())
       .then(res => {
-        fetch(`${Settings.host}/api/tests/${this.props.params.test_id}/test_results`)
+        fetch(`${Settings.host}/api/tests/${this.props.match.params.test_id}/test_results`)
           .then(res => res.json())
           .then(res => {
             let total_weight = this.state.totalWeight
@@ -65,11 +56,9 @@ export default class Test extends React.Component {
   }
 
   onClick(question, answer_option) {
-    console.log('total weight', this.state.totalWeight, answer_option.weight)
     let totalWeight = this.state.totalWeight + answer_option.weight
     let answers = this.state.answers
     answers.push(answer_option)
-    console.log('answers', answers)
     if (this.state.currentQuestionIndex + 1 >= this.state.test.questions.length) {
       this.setState({totalWeight, answers})
       this.getTestResults(totalWeight, answers)

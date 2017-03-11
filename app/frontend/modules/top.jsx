@@ -33,6 +33,9 @@ export default class Top extends React.Component {
         {this.state.users.map(user => {
           return (
             <div className="b-row" key={user.id}>
+              <div className="b-row__image">
+                <img src={user.photo} />
+              </div>
               <div className="b-row__name">
                 {user.first_name + ' ' + user.last_name}
               </div>
