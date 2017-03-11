@@ -24,7 +24,8 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        // include: [path.join(__dirname, './app/frontend')],
+        include: [path.join(__dirname, './app/frontend')],
+        exclude: /(node_modules)/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']

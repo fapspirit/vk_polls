@@ -31,12 +31,11 @@ app.get('/', (req, res) => {
     .findOne({viewer_id: req.query.viewer_id})
     .then(user => {
       if (user != null) {
-        console.log('user finded', user)
         payload.user = user
         res.render('index', payload)
       } else {
         let user = new UserModel({
-          viewer_id: req.query.viewer_id
+          viewer_id: req.query.viewer_id,
         })
         user
           .save()
