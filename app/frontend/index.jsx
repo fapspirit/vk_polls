@@ -44,27 +44,26 @@ if (Hash != '') {
   history.push(Hash)
 }
 
-render((
-  <Router history={history}>
-    <div>
-      <div className="b-nav">
-        <div className="b-nav__element">
-          <Link exact to="/">Тесты</Link>
-        </div>
-        <div className="b-nav__element">
-          <Link to="/top">Топ</Link>
-        </div>
-      </div>
-
-
-      <Route path="/" component={App} />
-      <Route path="/top" component={Top} />
-      <Route path="/tests/:test_id" component={Test} />
-    </div>
-  </Router>
-), document.getElementById('app'))
-
 VK.init(() => {
+  render((
+    <Router history={history}>
+      <div>
+        <div className="b-nav">
+          <div className="b-nav__element">
+            <Link exact to="/">Тесты</Link>
+          </div>
+          <div className="b-nav__element">
+            <Link to="/top">Топ</Link>
+          </div>
+        </div>
+
+
+        <Route exact path="/" component={App} />
+        <Route path="/top" component={Top} />
+        <Route path="/tests/:test_id" component={Test} />
+      </div>
+    </Router>
+  ), document.getElementById('app'))
 }, () => {
   console.log("vk init doesn't work!")
 }, '5.62')
