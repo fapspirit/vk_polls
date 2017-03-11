@@ -1,6 +1,7 @@
 const express = require('express')
 const TestModel = require('../models').TestModel
 const TestResultModel = require('../models').TestResultModel
+const AnswerModel = require('../models').ResultModel
 const questions = require('./questions')
 
 let router = express.Router()
@@ -82,6 +83,10 @@ router.post('/:test_id/test_results', (req, res) => {
     .save()
     .then(test_result => res.send({test_result}))
     .catch(err => res.status(500).send({error: {message: err.message}}))
+})
+
+router.patch('/:test_id/test_results/:test_result_id', (req, res) => {
+
 })
 
 module.exports = router

@@ -11,6 +11,16 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).send('Error'))
 })
 
+router.get('/top', (req, res) => {
+  UserModel
+    .find()
+    .sort('-score')
+    .limit(30)
+    .select('score viewer_id')
+    .then(users => res.send({users}))
+    .catch(err => res.status(404).send({error: {message: err.message}}))
+})
+
 router.get('/:user_id', (req, res) => {
   UserModel
     .findById(req.params.user_id)
@@ -51,26 +61,39 @@ router.delete('/:user_id', (req, res) => {
     .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 
-router.put('/:user_id/questions/:question_id/answer_options/:answer_option_id', (req, res) => {
-  let answer = new AnswerModel({
-    user: req.params.user_id,
-    question: req.params.question_id,
-    value: req.params.answer_option_id
-  })
-
-  answer
-    .save()
+router.post('/:user_id/tests/:test_id/answers', (req, res) => {
+  AnswerModel
+    .findOne({user: req.params.user_id, test: req.params.test_id})
     .then(answer => {
-      AnswerOptionModel
-        .findById(req.params.answer_option_id)
-        .then(answer_option => {
-          answer_option.answers.push(answer._id)
-          answer_option
-            .save()
-            .then(answer_option => res.end())
-            .catch(err => res.status(500).send({error: {message: err.message}}))
+      if (answer != null) {
+        console.log('answer finded', answer)
+        return res.send({answer})
+      }
+      answer = new AnswerModel({
+        user: req.params.user_id,
+        test: req.params.test_id,
+        values: req.body.answers || [],
+        score: req.body.score || 0
+      })
+
+      answer
+        .save()
+        .then(answer => {
+          console.log('answer saved', answer)
+          UserModel
+            .findById(req.params.user_id)
+            .then(user => {
+              console.log('user', user)
+              user.answers.push(answer)
+              user.score += answer.score
+              user
+                .save()
+                .then(user => res.send({answer}))
+                .catch(err => res.status(500).send({error: {message: err.message}}))
+            })
+            .catch(err => res.status(404).send({error:{message: err.message}}))
         })
-        .catch(err => res.status(404).send({error:{message: err.message}}))
+        .catch(err => res.status(500).send({error: {message: err.message}}))
     })
     .catch(err => res.status(500).send({error: {message: err.message}}))
 })
