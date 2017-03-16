@@ -13,6 +13,7 @@ export default class Test extends React.Component {
         questions: []
       },
       currentQuestionIndex: 0,
+      correctAnswersCount: 0,
       answers: [],
       currentQuestion: {
         answer_options: []
@@ -57,12 +58,14 @@ export default class Test extends React.Component {
       })
   }
 
-  onClick(question, answer_option) {
+  onClick(question, answer_option, is_correct) {
     let totalWeight = this.state.totalWeight + answer_option.weight
+    let correctAnswersCount = this.state.correctAnswersCount
+    correctAnswersCount += is_correct ? 1 : 0
     let answers = this.state.answers
     answers.push(answer_option)
     if (this.state.currentQuestionIndex + 1 >= this.state.test.questions.length) {
-      this.setState({totalWeight, answers})
+      this.setState({totalWeight, answers, correctAnswersCount})
       this.getTestResults(totalWeight, answers)
     } else {
       let currentQuestionIndex = this.state.currentQuestionIndex + 1
@@ -70,6 +73,7 @@ export default class Test extends React.Component {
         answers,
         totalWeight,
         currentQuestionIndex,
+        correctAnswersCount,
         currentQuestion: this.state.test.questions[currentQuestionIndex]
       }
       this.setState(state)
@@ -78,12 +82,16 @@ export default class Test extends React.Component {
 
   render() {
     let nextStep
+    let show_count
     if (this.state.currentQuestion != undefined) {
       nextStep = <Question question={this.state.currentQuestion} onClick={this.onClick.bind(this)} />
+      show_count = this.state.currentQuestionIndex + 1
     } else if (this.state.testResult != undefined) {
       nextStep = <TestResult test_result={this.state.testResult} />
+      show_count = this.state.correctAnswersCount
     } else {
       nextStep = <div> something wrong :( </div>
+      show_count = 0
     }
     return (
       <div className="b-test">
@@ -91,7 +99,7 @@ export default class Test extends React.Component {
           {this.state.test.title}
 
           <div className="b-test__progress">
-            {this.state.currentQuestionIndex + 1} / {this.state.test.questions.length}
+            {show_count} / {this.state.test.questions.length}
           </div>
         </div>
         <div className="b-test__image">

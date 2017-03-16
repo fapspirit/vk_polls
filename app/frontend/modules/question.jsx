@@ -26,7 +26,7 @@ export default class Question extends React.Component {
   }
 
   next() {
-    this.state.onClick(this.state.question, this.state.answer_option)
+    this.state.onClick(this.state.question, this.state.answer_option, this.state.correct_answer)
   }
 
   render() {
