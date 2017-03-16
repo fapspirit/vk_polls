@@ -34,7 +34,9 @@ export default class Top extends React.Component {
           return (
             <div className="b-row" key={user.id}>
               <div className="b-row__image">
-                <img src={user.photo_50} />
+                <a href={`https://vk.com/id${user.id}`} target="_blank" >
+                  <img src={user.photo_50} />
+                </a>
               </div>
               <div className="b-row__name">
                 <a href={`https://vk.com/id${user.id}`} target="_blank" >{user.first_name + ' ' + user.last_name}</a>

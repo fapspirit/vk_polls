@@ -211,31 +211,41 @@ body {
 .b-top {
   width: 100%;
   .b-row {
+    position: relative;
     width: 100%;
     padding: 5px 10px 8px;
     border-bottom: 1px solid #eee;
 
     .b-row__image {
       display: inline-block;
-      border-radius: 50%;
       margin-right: 10px;
 
       img {
         width: 100%;
+        border-radius: 50%;
       }
     }
 
     .b-row__name {
+      position: absolute;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
       display: inline-block;
 
       a {
         color: #444;
+        text-decoration: none;
       }
     }
 
     .b-row__score {
-      float: right;
-      color: #888;
+      @extend .b-row__name;
+      right: 10%;
+      color: #777;
     }
   }
 }
