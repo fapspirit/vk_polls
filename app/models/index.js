@@ -28,8 +28,6 @@ let AnswerModel        = mongoose.model('Answer', Answer)
 let TestResultModel    = mongoose.model('TestResult', TestResult)
 let RubricModel        = mongoose.model('Rubric', Rubric)
 
-UserModel.remove({})
-AnswerModel.remove({})
 
 module.exports.UserModel          = UserModel
 module.exports.TestModel          = TestModel
