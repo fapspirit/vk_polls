@@ -141,6 +141,8 @@ export default class AdminTestEdit extends React.Component {
   saveQuestion(e, i) {
     let questions = this.state.questions.slice()
     let question = questions[i]
+    let answer_options = question.answer_options.slice()
+    delete question.answer_options
     let req_options = {
       method: question._id == null ? 'POST' : 'PATCH',
       headers: {
@@ -154,7 +156,7 @@ export default class AdminTestEdit extends React.Component {
     fetch(url, req_options)
       .then(res => res.json())
       .then(res => {
-        question = Object.assign({}, res.question)
+        question = Object.assign({answer_options}, res.question)
         questions[i] = question
         this.setState({questions})
       })
@@ -171,6 +173,7 @@ export default class AdminTestEdit extends React.Component {
     let questions = this.state.questions.slice()
     let question = questions[qIndex]
     let option = question.answer_options[oIndex]
+    delete option.answers
     let req_options = {
       method: option._id == null ? 'POST' : 'PATCH',
       headers: {
@@ -207,8 +210,8 @@ export default class AdminTestEdit extends React.Component {
       },
       body: JSON.stringify(test_result)
     }
-    let url = `${Settings.host}/api/tests/${this.state.test._id}/`
-    url += `test_results/${test_result._id == null ? '' : test_result._id}`
+    let url = `${Settings.host}/api/tests/${this.state.test._id}`
+    url += `/test_results/${test_result._id == null ? '' : test_result._id}`
     fetch(url, req_options)
       .then(res => res.json())
       .then(res => {
@@ -216,6 +219,7 @@ export default class AdminTestEdit extends React.Component {
         test_results[i] = test_result
         this.setState({test_results})
       })
+    console.log('save test results', url, req_options)
   }
 
   saveTest() {
@@ -270,9 +274,6 @@ export default class AdminTestEdit extends React.Component {
               <label htmlFor={"qImage"+i}>Картинка вопроса </label>
               <input type="text" id={"qImage"+i} value={question.image} name="image" onChange={(e) => handleQuestionInputChange(e, i)} />
               <br/>
-              <label htmlFor={"qResText"+i}>Текст при нажатии </label>
-              <input type="text" id={"qResTest"+i} value={question.result_text} name="result_text" onChange={(e) => handleQuestionInputChange(e, i)} />
-              <br/>
               <div className="b-admin-answer_options" style={{'marginLeft': '20px'}}>
                 <h4> Варианты ответа ({question.answer_options.length})
                   <button onClick={(e) => this.addAnswerOption(e, i)}> Добавить вариант ответа </button>
@@ -286,6 +287,9 @@ export default class AdminTestEdit extends React.Component {
                     <label htmlFor={"oWeiht"+j}>Вес варианта ответа</label>
                     <br/>
                     <input type="number" id={"oWeight"+j} name="weight" value={option.weight} onChange={(e) => handleAnswerOptionInputChange(e, i, j)} />
+                    <br/>
+                    <label htmlFor={"oResText"+j}>Текст при нажатии </label>
+                    <input type="text" id={"oResTest"+j} value={question.result_text} name="result_text" onChange={(e) => handleAnswerOptionInputChange(e, i, j)} />
                     <br/>
                     <button onClick={(e) => this.saveAnswerOption(e, i, j)}> Сохранить </button>
                     <br/>

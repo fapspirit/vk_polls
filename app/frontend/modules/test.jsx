@@ -8,7 +8,6 @@ require('es6-promise/auto')
 export default class Test extends React.Component {
   constructor(props) {
     super(props)
-    console.log('props', props)
     this.state = {
       test: {},
       answers: [],

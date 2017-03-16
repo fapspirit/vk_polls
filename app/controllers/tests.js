@@ -3,6 +3,7 @@ const TestModel = require('../models').TestModel
 const TestResultModel = require('../models').TestResultModel
 const AnswerModel = require('../models').ResultModel
 const questions = require('./questions')
+const _ = require('lodash')
 
 let router = express.Router()
 
@@ -97,7 +98,35 @@ router.post('/:test_id/test_results', (req, res) => {
 })
 
 router.patch('/:test_id/test_results/:test_result_id', (req, res) => {
+  let body = req.body
+  TestResultModel
+    .findById(req.params.test_result_id)
+    .then(test_result => {
+      Object.keys(body).forEach(key => test_result[key] = body[key])
+      test_result
+        .save()
+        .then(test_result => res.send({test_result}))
+        .catch(err => res.status(500).send({error: {message: err.message}}))
+    })
+    .catch(err => res.status(404).send({error: {message: err.message}}))
+})
 
+router.delete('/:test_id/test_results/:test_result_id', (req, res) => {
+  TestResultModel
+    .findByIdAndRemove(req.params.test_result_id)
+    .then(() => {
+      TestModel
+        .findById(req.params.test_id)
+        .then(test => {
+          _.remove(test.test_results, (r) => r != req.params.test_result_id)
+          test
+            .save()
+            .then(test => res.send())
+            .catch(err => res.status(500).send({error: {message: err.message}}))
+        })
+        .catch(err => res.status(500).send({error: {message: err.message}}))
+    })
+    .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 
 module.exports = router

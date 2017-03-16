@@ -30,6 +30,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="b-app">
+        <div className="b-main-banner">
+          <img src={`${Settings.host}/images/main_banner.png`} />
+        </div>
         {this.state.tests.map(test => {
           return (
             <TestAnnounce test={test} key={test._id} />

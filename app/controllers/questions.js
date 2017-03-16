@@ -48,6 +48,7 @@ router.patch('/:question_id', (req, res) => {
   let body = req.body
   QuestionModel
     .findById(req.params.question_id)
+    .populate({path: 'answer_options'})
     .then(question => {
       Object.keys(body).forEach(key => question[key] = body[key])
       question

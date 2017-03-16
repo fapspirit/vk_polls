@@ -31,6 +31,7 @@ export default class Question extends React.Component {
 
   render() {
     let text
+    let image = this.state.question.image ? <img src={this.state.question.image} /> : null
     let buttons = <div className="b-question__next" onClick={this.next.bind(this)}> Далее </div>
     if (this.state.correct_answer == undefined) {
       text = <div className="b-question__text">{this.state.question.text}</div>
@@ -49,10 +50,13 @@ export default class Question extends React.Component {
 
     return (
       <div className="b-question">
-        <div className="b-question__image">
-
+        <div className="b-question__header">
+          <div className="b-question__image">
+            <div className="b-question__overlay"></div>
+            {image}
+          </div>
+          {text}
         </div>
-        {text}
         <div className="b-question__options">
           {buttons}
         </div>
