@@ -24,8 +24,6 @@ router.post('/', (req, res) => {
     test: req.params.test_id,
     text: body.text || null,
     image: body.image || null,
-    right_text: body.right_text || null,
-    wrong_text: body.wrong_text || null,
     order: body.order || 0
   })
 

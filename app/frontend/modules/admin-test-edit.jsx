@@ -270,6 +270,9 @@ export default class AdminTestEdit extends React.Component {
               <label htmlFor={"qImage"+i}>Картинка вопроса </label>
               <input type="text" id={"qImage"+i} value={question.image} name="image" onChange={(e) => handleQuestionInputChange(e, i)} />
               <br/>
+              <label htmlFor={"qResText"+i}>Текст при нажатии </label>
+              <input type="text" id={"qResTest"+i} value={question.result_text} name="result_text" onChange={(e) => handleQuestionInputChange(e, i)} />
+              <br/>
               <div className="b-admin-answer_options" style={{'marginLeft': '20px'}}>
                 <h4> Варианты ответа ({question.answer_options.length})
                   <button onClick={(e) => this.addAnswerOption(e, i)}> Добавить вариант ответа </button>

@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
     question: req.params.question_id,
     text: body.text || null,
     image: body.image || null,
+    result_text: body.result_text || null,
     order: body.order || 0,
     weight: body.weight
   })

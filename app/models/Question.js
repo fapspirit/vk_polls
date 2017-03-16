@@ -6,8 +6,6 @@ let Question = new Schema({
   answer_options: [{type: Schema.Types.ObjectId, ref: 'AnswerOption'}],
   text: {type: String},
   image: {type: String},
-  right_text: {type: String},
-  wrong_text: {type: String},
   order: {type: Number},
 })
 

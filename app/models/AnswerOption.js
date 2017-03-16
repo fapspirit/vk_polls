@@ -5,6 +5,7 @@ let AnswerOption = new Schema({
   question: {type: Schema.Types.ObjectId, ref: 'Question'},
   text: {type: String},
   image: {type: String},
+  result_text: {type: String},
   order: {type: Number},
   weight: {type: Number, default: 0},
   answers: [{type: Schema.Types.ObjectId, ref: 'Answer'}]
