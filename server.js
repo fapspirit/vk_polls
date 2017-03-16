@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   if (!req.query.viewer_id) {
     return res.status(500).send('Error')
   }
-  let menu = [{title: 'Тесты', path: '/'}, {title: 'Топ', path: '/top'}]
+  let menu = [{title: 'Тесты', path: '/'}, {title: 'Топ-30', path: '/top'}]
   if (parseInt(req.query.group_id) != 0 && parseInt(req.query.viewer_type) == 4)
     menu.push({title: 'Редактирование', path: '/admin'})
   let payload = {
