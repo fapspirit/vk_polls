@@ -289,7 +289,7 @@ export default class AdminTestEdit extends React.Component {
                     <input type="number" id={"oWeight"+j} name="weight" value={option.weight} onChange={(e) => handleAnswerOptionInputChange(e, i, j)} />
                     <br/>
                     <label htmlFor={"oResText"+j}>Текст при нажатии </label>
-                    <input type="text" id={"oResTest"+j} value={question.result_text} name="result_text" onChange={(e) => handleAnswerOptionInputChange(e, i, j)} />
+                    <input type="text" id={"oResTest"+j} value={option.result_text} name="result_text" onChange={(e) => handleAnswerOptionInputChange(e, i, j)} />
                     <br/>
                     <button onClick={(e) => this.saveAnswerOption(e, i, j)}> Сохранить </button>
                     <br/>
