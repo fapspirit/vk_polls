@@ -4,6 +4,7 @@ import { Route, IndexRoute, NavLink as Link, HashRouter as Router, useRouterHist
 import { createHashHistory } from "history"
 import Test from "./modules/test"
 import Top from "./modules/top"
+import Admin from "./modules/admin"
 import TestAnnounce from './modules/test-announce'
 require('es6-promise/auto')
 import fetch from 'isomorphic-fetch'
@@ -44,26 +45,29 @@ if (Hash != '') {
   history.push(Hash)
 }
 
-VK.init(() => {
-  render((
-    <Router history={history}>
-      <div>
-        <div className="b-nav">
-          <div className="b-nav__element">
-            <Link exact to="/">Тесты</Link>
-          </div>
-          <div className="b-nav__element">
-            <Link to="/top">Топ</Link>
-          </div>
-        </div>
-
-
-        <Route exact path="/" component={App} />
-        <Route path="/top" component={Top} />
-        <Route path="/tests/:test_id" component={Test} />
+render((
+  <Router history={history}>
+    <div>
+      <div className="b-nav">
+        {Menu.map((item, i) => {
+          return (
+            <div className="b-nav__element" key={i}>
+              <Link exact to={item.path}>{item.title}</Link>
+            </div>
+          )
+        })}
       </div>
-    </Router>
-  ), document.getElementById('app'))
+
+
+      <Route exact path="/" component={App} />
+      <Route path="/top" component={Top} />
+      <Route path="/tests/:test_id" component={Test} />
+      <Route path="/admin" component={Admin}/>
+    </div>
+  </Router>
+), document.getElementById('app'))
+
+VK.init(() => {
 }, () => {
   console.log("vk init doesn't work!")
 }, '5.62')

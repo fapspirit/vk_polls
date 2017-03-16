@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.get('/:test_id', (req, res) => {
   TestModel
     .findById(req.params.test_id)
-    .populate({path: 'questions', populate:{path: 'answer_options'}})
+    .populate([{path: 'questions', populate:{path: 'answer_options'}}, {path: 'test_results'}])
     .then(test => res.send({test}))
     .catch(err => res.status(404).send({error: {message: err.message}}))
 })
@@ -81,7 +81,18 @@ router.post('/:test_id/test_results', (req, res) => {
 
   test_result
     .save()
-    .then(test_result => res.send({test_result}))
+    .then(test_result => {
+      TestModel
+        .findById(test_result.test)
+        .then(test => {
+            test.test_results.push(test_result._id)
+            test
+              .save()
+              .then(test => res.send({test_result}))
+              .catch(err => res.status(500).send({error: {message: err.message}}))
+        })
+        .catch(err => res.status(500).send({error: {message: err.message}}))
+    })
     .catch(err => res.status(500).send({error: {message: err.message}}))
 })
 

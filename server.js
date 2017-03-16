@@ -23,9 +23,13 @@ app.get('/', (req, res) => {
   if (!req.query.viewer_id) {
     return res.status(500).send('Error')
   }
+  let menu = [{title: 'Тесты', path: '/'}, {title: 'Топ', path: '/top'}]
+  if (parseInt(req.query.group_id) != 0 && parseInt(req.query.viewer_type) == 4)
+    menu.push({title: 'Редактирование', path: '/admin'})
   let payload = {
     viewer_id: req.query.viewer_id,
-    hash: req.query.hash || ''
+    hash: req.query.hash || '',
+    menu
   }
   UserModel
     .findOne({viewer_id: req.query.viewer_id})
