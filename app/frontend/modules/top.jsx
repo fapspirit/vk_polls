@@ -15,7 +15,7 @@ export default class Top extends React.Component {
       .then(res => res.json())
       .then(res => {
         let user_ids = res.users.map(user => user.viewer_id)
-        VK.api('users.get', {user_ids, test_mode: 1}, (data) => {
+        VK.api('users.get', {user_ids, fields: 'photo_50, first_name, last_name', test_mode: 1}, (data) => {
           let users = data.response.map((user, i) => {
             user.score = res.users[i].score
             return user
@@ -34,10 +34,10 @@ export default class Top extends React.Component {
           return (
             <div className="b-row" key={user.id}>
               <div className="b-row__image">
-                <img src={user.photo} />
+                <img src={user.photo_50} />
               </div>
               <div className="b-row__name">
-                {user.first_name + ' ' + user.last_name}
+                <a href={`https://vk.com/id${user.id}`} target="_blank" >{user.first_name + ' ' + user.last_name}</a>
               </div>
               <div className="b-row__score">
                 {user.score}

@@ -198,6 +198,38 @@ body {
   }
 }
 
+.b-top {
+  width: 100%;
+  .b-row {
+    width: 100%;
+    padding: 5px 10px 8px;
+    border-bottom: 1px solid #eee;
+
+    .b-row__image {
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 10px;
+
+      img {
+        width: 100%:
+      }
+    }
+
+    .b-row__name {
+      display: inline-block;
+
+      a {
+        color: #444;
+      }
+    }
+
+    .b-row__score {
+      float: right;
+      color: #888;
+    }
+  }
+}
+
 @media only screen and (max-width: 750px) {
   .b-test {
     .b-question {
