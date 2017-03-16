@@ -40,9 +40,9 @@ export default class Question extends React.Component {
         )
       })
     } else if (this.state.correct_answer == true) {
-      text = <div className="b-question__text b-question__text--right">{this.state.question.right_text}</div>
+      text = <div className="b-question__text b-question__text--right">{this.state.answer_option.result_text}</div>
     } else {
-      text = <div className="b-question__text b-question__text--wrong">{this.state.question.wrong_text}</div>
+      text = <div className="b-question__text b-question__text--wrong">{this.state.answer_option.result_text}</div>
 
     }
 
