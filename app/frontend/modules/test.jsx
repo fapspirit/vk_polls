@@ -9,7 +9,10 @@ export default class Test extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      test: {},
+      test: {
+        questions: []
+      },
+      currentQuestionIndex: 0,
       answers: [],
       currentQuestion: {
         answer_options: []
@@ -86,6 +89,10 @@ export default class Test extends React.Component {
       <div className="b-test">
         <div className="b-test__title">
           {this.state.test.title}
+
+          <div className="b-test__progress">
+            {this.state.currentQuestionIndex + 1} / {this.state.test.questions.length}
+          </div>
         </div>
         <div className="b-test__image">
           <img />
