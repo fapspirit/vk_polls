@@ -81,6 +81,16 @@ body {
       width: 60%;
       margin: 0 auto 20px;
 
+      .b-question__progress {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+      }
+
       .b-question__image {
         width: 100%;
 
@@ -159,6 +169,16 @@ body {
     position: relative;
     width: 60%;
     margin: 0 auto 20px;
+
+    .b-result__result {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      right: 0;
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+    }
 
     .b-result__image {
       width: 100%;

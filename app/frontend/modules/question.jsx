@@ -55,6 +55,9 @@ export default class Question extends React.Component {
             <div className="b-question__overlay"></div>
             {image}
           </div>
+          <div className="b-question__progress">
+            {this.props.show_count}
+          </div>
           {text}
         </div>
         <div className="b-question__options">

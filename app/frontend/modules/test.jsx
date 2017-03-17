@@ -84,11 +84,13 @@ export default class Test extends React.Component {
     let nextStep
     let show_count
     if (this.state.currentQuestion != undefined) {
-      nextStep = <Question question={this.state.currentQuestion} onClick={this.onClick.bind(this)} />
       show_count = this.state.currentQuestionIndex + 1
+      show_count = `${show_count} / ${this.state.test.questions.length}`
+      nextStep = <Question question={this.state.currentQuestion} show_count={show_count} onClick={this.onClick.bind(this)} />
     } else if (this.state.testResult != undefined) {
-      nextStep = <TestResult test_result={this.state.testResult} />
       show_count = this.state.correctAnswersCount
+      show_count = `Ваш результат: ${show_count} / ${this.state.test.questions.length}`
+      nextStep = <TestResult test_result={this.state.testResult} show_count={show_count} />
     } else {
       nextStep = <div> something wrong :( </div>
       show_count = 0
@@ -97,10 +99,6 @@ export default class Test extends React.Component {
       <div className="b-test">
         <div className="b-test__title">
           {this.state.test.title}
-
-          <div className="b-test__progress">
-            {show_count} / {this.state.test.questions.length}
-          </div>
         </div>
         <div className="b-test__image">
           <img />

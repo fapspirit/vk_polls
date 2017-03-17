@@ -30,9 +30,10 @@ export default class Top extends React.Component {
       <div className="b-top">
         <div className="b-row b-top__row--info">
         </div>
-        {this.state.users.map(user => {
+        {this.state.users.map((user, i) => {
           return (
             <div className="b-row" key={user.id}>
+              <div className="b-row__number">{i + 1}</div>
               <div className="b-row__image">
                 <a href={`https://vk.com/id${user.id}`} target="_blank" >
                   <img src={user.photo_50} />

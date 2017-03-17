@@ -15,6 +15,9 @@ export default class TestResult extends React.Component {
             </div>
             <img src={this.props.test_result.image} />
           </div>
+          <div className="b-result__result">
+            {this.props.show_count}
+          </div>
           <div className="b-result__text">{this.props.test_result.text}</div>
         </div>
         <div className="b-result__link">
