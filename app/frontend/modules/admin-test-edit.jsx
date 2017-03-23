@@ -265,7 +265,7 @@ export default class AdminTestEdit extends React.Component {
         <input type="text" id="testImage" name="image" value={this.state.test.image} onChange={(e) => handleTestInputChange(e)} />
         <br/>
         <label htmlFor="testPublish">Опубликован?</label>
-        <input type="checkbox" id="testPublish" name="published" value={this.state.test.published} onChange={(e) => handleTestInputChange(e)} />
+        <input type="checkbox" id="testPublish" name="published" checked={this.state.test.published} onChange={(e) => handleTestInputChange(e)} />
         <br/>
         <div className="b-admin-test-questions">
           <h3>
