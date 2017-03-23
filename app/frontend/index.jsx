@@ -31,7 +31,7 @@ class App extends React.Component {
     return (
       <div className="b-app">
         <div className="b-main-banner">
-          <img src={`${Settings.host}/images/main_banner.png`} />
+          <img src={`${Settings.host}/images/main_banner_2.png`} />
         </div>
         {this.state.tests.map(test => {
           return (
@@ -48,29 +48,28 @@ if (Hash != '') {
   history.push(Hash)
 }
 
-render((
-  <Router history={history}>
-    <div>
-      <div className="b-nav">
-        {Menu.map((item, i) => {
-          return (
-            <div className="b-nav__element" key={i}>
-              <Link exact to={item.path}>{item.title}</Link>
-            </div>
-          )
-        })}
-      </div>
-
-
-      <Route exact path="/" component={App} />
-      <Route path="/top" component={Top} />
-      <Route path="/tests/:test_id" component={Test} />
-      <Route path="/admin" component={Admin}/>
-    </div>
-  </Router>
-), document.getElementById('app'))
-
 VK.init(() => {
+  render((
+    <Router history={history}>
+      <div>
+        <div className="b-nav">
+          {Menu.map((item, i) => {
+            return (
+              <div className="b-nav__element" key={i}>
+                <Link exact to={item.path}>{item.title}</Link>
+              </div>
+            )
+          })}
+        </div>
+
+
+        <Route exact path="/" component={App} />
+        <Route path="/top" component={Top} />
+        <Route path="/tests/:test_id" component={Test} />
+        <Route path="/admin" component={Admin}/>
+      </div>
+    </Router>
+  ), document.getElementById('app'))
 }, () => {
   console.log("vk init doesn't work!")
 }, '5.62')
