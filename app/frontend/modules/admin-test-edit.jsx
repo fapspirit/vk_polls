@@ -106,8 +106,14 @@ export default class AdminTestEdit extends React.Component {
 
   handleTestInputChange(e) {
     let test = Object.assign({}, this.state.test)
-    test[e.target.name] = e.target.value
+    let type = e.target.getAttribute ? e.target.getAttribute('type') : e.type
+    test[e.target.name] = type === 'checkbox' ? e.target.checked : e.target.value
     this.setState({test})
+  }
+
+  updateRadioState(e) {
+    let test = Object.assign({}, this.state.test)
+    test[e.target.name] = e.target.checked
   }
 
   handleQuestionInputChange(e, qIndex) {

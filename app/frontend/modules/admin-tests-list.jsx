@@ -17,7 +17,7 @@ export default class AdminTestsList extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${Settings.host}/api/tests/`)
+    fetch(`${Settings.host}/api/tests/?all=true`)
       .then(res => res.json())
       .then(res => {
         this.setState({tests: res.tests})

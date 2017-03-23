@@ -8,8 +8,13 @@ const _ = require('lodash')
 let router = express.Router()
 
 router.get('/', (req, res) => {
+  let filter = {}
+  if (!req.query.all) {
+    filter.published = true
+  }
+
   TestModel
-    .find()
+    .find(filter)
     .then(tests => res.send({tests}))
     .catch(err => res.status(500).send({error: {message: err.message}}))
 })
